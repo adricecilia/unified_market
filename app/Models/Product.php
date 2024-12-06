@@ -3,14 +3,14 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Product extends Model
 {
     protected $fillable = [
         'name',
         'slug',
-        'category_id',
-        'brand_id',
         'packaging',
         'thumbnail',
         'unit_price',
@@ -19,4 +19,9 @@ class Product extends Model
         'previous_unit_price',
         'reference_format',
     ];
+
+    public function categories(): BelongsToMany
+    {
+        return $this->belongsToMany(Category::class);
+    }
 }

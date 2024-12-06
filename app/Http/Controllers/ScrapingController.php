@@ -10,6 +10,7 @@ use App\Models\Subcategory;
 use Exception;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
+use Illuminate\Http\RedirectResponse;
 
 class ScrapingController extends Controller
 {
@@ -25,7 +26,7 @@ class ScrapingController extends Controller
      * @throws GuzzleException
      * @throws Exception
      */
-    private function scrapeMercadona(): void
+    private function scrapeMercadona(): RedirectResponse
     {
         try {
             $url = 'https://tienda.mercadona.es/api/categories/';
@@ -74,13 +75,10 @@ class ScrapingController extends Controller
                         ]);
 
                         foreach ($products as $product) {
-                            // Register products and relate with subcategory
                             $product = Product::updateOrCreate([
                                 'name' => trim($product['display_name']),
                                 'slug' => trim($product['slug']),
                             ], [
-                                'category_id' => $category->id,
-                                'brand_id' => $brand->id,
                                 'packaging' => trim($product['packaging']),
                                 'thumbnail' => trim($product['thumbnail']),
                                 'unit_price' => floatval($product['price_instructions']['unit_price']),
@@ -89,10 +87,16 @@ class ScrapingController extends Controller
                                 'previous_unit_price' => floatval($product['price_instructions']['previous_unit_price']),
                                 'reference_format' => trim($product['price_instructions']['reference_format']),
                             ]);
+
+                            // Relacionar el producto con la categoría
+                            $product->categories()->attach($category->id);
+                            $product->save();
                         }
                     }
                 }
             }
+
+            return redirect()->route('dashboard');
         } catch (Exception $e) {
             throw new Exception($e);
         }
