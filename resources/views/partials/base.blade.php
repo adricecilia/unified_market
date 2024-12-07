@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 @include('partials.head')
-    <body class="font-sans antialiased w-full h-full bg-white text-dark">
-    @include('partials.header')
-        <div class="relative min-h-screen flex flex-col items-center justify-center">
+    <body class="flex flex-col font-sans antialiased w-full h-full bg-dark text-white">
+        @include('partials.header')
+        <div class="flex flex-1 items-center justify-center">
             @yield('content')
         </div>
-    @include('partials.footer')
+        @include('partials.footer')
     </body>
 </html>
