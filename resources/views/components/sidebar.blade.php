@@ -5,13 +5,15 @@
                 <button class="w-full p-0">
                     <span class="px-4 items-center flex">
                         <i class="fa-solid fa-caret-down text-white mr-1 -rotate-90"></i>
-                        <label class="py-4 text-sm font-normal text-white border-b">{{ $category->name }}</label>
+                        <h3 class="py-4 text-sm font-normal text-white border-b">{{ $category->name }}</h3>
                     </span>
                 </button>
                 <ul class="hidden">
                     @foreach($category->subcategories as $subcategory)
                         <li class="pl-16 pr-4 text-sm font-normal text-white">
-                            <button class="py-2 border-b border-white">{{ $subcategory->name }}</button>
+                            <button class="py-2 border-b border-white">
+                                <h4>{{ $subcategory->name }}</h4>
+                            </button>
                         </li>
                     @endforeach
                 </ul>
