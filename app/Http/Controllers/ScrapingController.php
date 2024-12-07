@@ -69,10 +69,8 @@ class ScrapingController extends Controller
                             'slug' => self::nameToSlug($subcategoryName),
                         ]);
 
-                        CategorySubcategory::firstOrCreate([
-                            'category_id' => $category->id,
-                            'subcategory_id' => $subcategory->id,
-                        ]);
+                        $category->subcategories()->attach($subcategory->id);
+                        $category->save();
 
                         foreach ($products as $product) {
                             $product = Product::updateOrCreate([

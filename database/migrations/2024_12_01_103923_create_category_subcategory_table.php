@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('category_subcategories', function (Blueprint $table) {
+        Schema::create('category_subcategory', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('category_id');
             $table->bigInteger('subcategory_id');
@@ -24,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('category_subcategories');
+        Schema::dropIfExists('category_subcategory');
     }
 };
