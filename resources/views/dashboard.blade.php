@@ -3,8 +3,8 @@
 @section('title', 'Dashboard')
 
 @section('content')
-    <main class="w-full min-h-screen">
-        <div class="flex flex-col">
+    <main class="w-full h-full">
+        <div class="inline-block">
             @include('components.sidebar', ['categories' => $categories])
         </div>
     </main>
